@@ -1,0 +1,11 @@
+// Create Keyspace
+CREATE KEYSPACE IF NOT EXISTS IotTowerSpace WITH replication = { 'class':'SimpleStrategy', 'replication_factor':1};
+
+// Drop existing tables
+DROP TABLE IF EXISTS IotTowerSpace.Content_By_Age_Policy_Rule;
+DROP TABLE IF EXISTS IotTowerSpace.Tower_Carrier_Platform_Policy_Rule;
+DROP TABLE IF EXISTS IotTowerSpace.Registered_User;
+
+CREATE TABLE IF NOT EXISTS IotTowerSpace.Content_By_Age_Policy_Rule(id UUID, start_age INT, end_age INT, content_types set<TEXT>, PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS IotTowerSpace.Tower_Carrier_Platform_Policy_Rule(tower_name TEXT, carrier_name TEXT, platform_name TEXT, is_active BOOLEAN, PRIMARY KEY((tower_name), carrier_name, platform_name));
+CREATE TABLE IF NOT EXISTS IotTowerSpace.Registered_User(carrier_name TEXT, tower_name TEXT, email TEXT, user_id UUID, date_of_birth TIMESTAMP, is_active BOOLEAN, latest_timeStamp TIMESTAMP, PRIMARY KEY((carrier_name), email));
